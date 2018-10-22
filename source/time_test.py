@@ -65,5 +65,5 @@ def vogue_korea_time_test(test_cnt=1, page_numb=1):
 
 
 if __name__ == '__main__':
-    google_trend_time_test(3)
-    vogue_korea_time_test(3, 10)
+    google_trend_time_test(10)
+    vogue_korea_time_test(10, 10)
