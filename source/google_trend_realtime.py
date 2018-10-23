@@ -16,7 +16,7 @@ def res_to_dict(text):
 def utf8_to_euckr(unicode_string):
     return unicode_string.encode('euc-kr', 'replace').decode('euc-kr')
 
-def get_keyword_list(hl='ko',geo='US',category='all'):
+def get_keyword_id_list(hl='ko',geo='US',category='all'):
     url = 'https://trends.google.co.kr/trends/api/realtimetrends'
     query = {'hl':hl, 'geo':geo, 'cat':category, 'sort':'0',
              'tz':'-540', 'fi':'0', 'fs':'0', 'ri':'300', 'rs':'20'}
@@ -41,14 +41,15 @@ def get_reltime_keword_summary(keyword_list):
     return summary_dict
 
 def google_trend_title_no_webdriver():
-    keyword_list = get_keyword_list()
+    id_list = get_keyword_id_list()
 
     chunk_size = 40 # max chunk size is 40
-    keyword_list_chunked = [keyword_list[i:i+chunk_size]
-                            for i in range(0, len(keyword_list), chunk_size)]
+    id_list_chunked = [id_list[i:i+chunk_size]
+                            for i in range(0, len(id_list), chunk_size)]
 
+    # 이 부분 분산처리 가능
     title_list = []
-    for chunk in keyword_list_chunked:
+    for chunk in id_list_chunked:
         summary_dict = get_reltime_keword_summary(chunk)
         keyword_list = summary_dict['trendingStories']
         title_list += [utf8_to_euckr(data['title']) for data in keyword_list]

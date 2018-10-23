@@ -26,6 +26,7 @@ def utf8_to_euckr(unicode_string):
 def vogue_korea_title_no_webdriver(page_numb):
     base_url = 'http://www.vogue.co.kr/category/fashion/page/{}/?noCache'
 
+    # 이 부분 분산처리 가능
     title_list = []
     for page_numb in range(1, page_numb+1):
         target_url = base_url.format(page_numb)
